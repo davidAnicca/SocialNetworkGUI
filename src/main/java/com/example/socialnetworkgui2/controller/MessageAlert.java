@@ -1,4 +1,4 @@
-package com.example.socialnetworkgui2.Controller;
+package com.example.socialnetworkgui2.controller;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;

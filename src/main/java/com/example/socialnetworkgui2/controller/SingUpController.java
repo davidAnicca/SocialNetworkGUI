@@ -1,15 +1,12 @@
-package com.example.socialnetworkgui2.Controller;
+package com.example.socialnetworkgui2.controller;
 
 import com.example.socialnetworkgui2.exceptions.RepoException;
 import com.example.socialnetworkgui2.exceptions.ServiceException;
 import com.example.socialnetworkgui2.service.UserService;
-import com.example.socialnetworkgui2.utils.Strings;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class SingUpController {
     UserService service;

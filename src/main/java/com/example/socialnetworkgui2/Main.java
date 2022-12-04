@@ -1,6 +1,6 @@
 package com.example.socialnetworkgui2;
 
-import com.example.socialnetworkgui2.Controller.LoginController;
+import com.example.socialnetworkgui2.controller.LoginController;
 import com.example.socialnetworkgui2.db.FriendshipRepoDb;
 import com.example.socialnetworkgui2.db.UserRepoDb;
 import com.example.socialnetworkgui2.service.UserService;

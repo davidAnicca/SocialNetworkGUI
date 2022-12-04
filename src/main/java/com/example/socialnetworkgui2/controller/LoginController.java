@@ -1,6 +1,5 @@
-package com.example.socialnetworkgui2.Controller;
+package com.example.socialnetworkgui2.controller;
 
-import com.example.socialnetworkgui2.Controller.MessageAlert;
 import com.example.socialnetworkgui2.Main;
 import com.example.socialnetworkgui2.service.UserService;
 import javafx.event.ActionEvent;
