@@ -39,11 +39,11 @@ public class UserService {
      *
      * @param userName numele utilizatorului
      * @param password parola utilizatorului
-     * @throws RepoException dacă utilizatorul există deja
+     * @throws RepoException    dacă utilizatorul există deja
      * @throws ServiceException dacă data nu e ok sau emailul nu e ok
      */
     public void addUser(String userName, String email, String password, LocalDate birthDate) throws RepoException, ServiceException {
-        if(!Validator.emailValidator(email)){
+        if (!Validator.emailValidator(email)) {
             throw new ServiceException("Invalid Email");
         }
         if (!Validator.dateValidator(birthDate)) {
@@ -60,11 +60,11 @@ public class UserService {
      * @throws RepoException dacă utilizatorul există deja
      */
     public void addUser(String userName, String email, String password, String birthDate) throws RepoException, ServiceException {
-        if(!Validator.emailValidator(email)){
+        if (!Validator.emailValidator(email)) {
             throw new ServiceException("Invalid Email");
         }
         if (!Validator.dateValidator(birthDate)) {
-            throw new ServiceException("formatul de dată este yyyy-MM-dd");
+            throw new ServiceException("Date format is yyyy-MM-dd");
         }
         repo.addUser(new User(userName, email, password,
                 LocalDate.parse(birthDate, DateTimeFormatter.ofPattern(Strings.dateFormat))
@@ -84,14 +84,15 @@ public class UserService {
 
     /**
      * verifică existența unui utilizator și parola dacă este corectă
+     *
      * @param userName username dat
      * @param password parola data
      * @return false dacă utilizatorul nu există sau parola greșită
-     *          true dacă user-parolă este corect
+     * true dacă user-parolă este corect
      */
-    public boolean checkLogin(String userName, String password){
+    public boolean checkLogin(String userName, String password) {
         User found = repo.find(new User(userName));
-        if(found == null)
+        if (found == null)
             return false;
         return Objects.equals(found.getPassword(), password);
     }
@@ -123,7 +124,7 @@ public class UserService {
      * @return dacă user1 și user2 corespund unor utilozatori valizi
      */
     private boolean areUsers(String user1, String user2) {
-        return isUser(user1) && isUser(user2);
+        return isUser(user1) && isUser(user2) && !user1.equals(user2);
     }
 
     /**
@@ -136,7 +137,7 @@ public class UserService {
     public void addFriendship(String user1, String user2) throws RepoException {
         if (areUsers(user1, user2)) {
             friendshipRepo.addFriendship(new Friendship(user1, user2, LocalDate.now()));
-        } else throw new RepoException("prietenia se leagă doar între useri valizi");
+        } else throw new RepoException("Can't find the user specified");
     }
 
     public void acceptFriendship(String user1, String user2) throws RepoException {
@@ -197,7 +198,7 @@ public class UserService {
      */
     public Set<String> getFriends(String user) throws RepoException {
         if (!isUser(user)) {
-            throw new RepoException(user + " nu este utilizator");
+            throw new RepoException(user + " is not a valid user");
         }
         return networksService.getFriends(user);
     }
@@ -218,5 +219,20 @@ public class UserService {
      */
     public Set<User> getLongestNetwork() {
         return networksService.longestNetwork();
+    }
+
+    /**
+     * dă userul cu un anumit username
+     *
+     * @param userName userName-ul căutat
+     * @return User-ul căutat
+     * null dacă nu a putut fi găsit
+     */
+    public User getUser(String userName) {
+        for (User user1 : getUsers()) {
+            if (Objects.equals(user1.getUserName(), userName))
+                return user1;
+        }
+        return null;
     }
 }

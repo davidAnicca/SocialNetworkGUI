@@ -75,11 +75,11 @@ public class FriendshipRepoDb {
     public void addFriendship(Friendship friendship) throws RepoException {
         for (Friendship friendship1 : friendships) {
             if (friendship1.equals(friendship)) {
-                throw new RepoException("prietenia există deja");
+                throw new RepoException("You are already friends or friend request was sent. Wait for confirmation");
             }
         }
         if (!friendships.add(friendship)) {
-            throw new RepoException("prietenia exista deja");
+            throw new RepoException("You are already friends or friend request was sent. Wait for confirmation");
         }
         saveFriendship(friendship);
     }
@@ -115,7 +115,7 @@ public class FriendshipRepoDb {
                 return;
             }
         }
-        throw new RepoException("prietenia nu există");
+        throw new RepoException("You are not friends yet");
     }
 
     public void acceptFriendship(Friendship friendship) throws RepoException {
@@ -125,7 +125,7 @@ public class FriendshipRepoDb {
                 return;
             }
         }
-        throw new RepoException("prietenia nu există");
+        throw new RepoException("You are not friends yet");
     }
 
     private void removeFriendshipFromDb(Friendship friendship) {

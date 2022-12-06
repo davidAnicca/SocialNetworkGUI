@@ -1,7 +1,6 @@
 package com.example.socialnetworkgui2.db;
 
 
-
 import com.example.socialnetworkgui2.domain.User;
 import com.example.socialnetworkgui2.exceptions.RepoException;
 
@@ -108,7 +107,7 @@ public class UserRepoDb {
      */
     public void addUser(User user) throws RepoException {
         if (!users.add(user)) {
-            throw new RepoException("Userul există deja\n");
+            throw new RepoException("This username is not available\n");
         }
         saveUserInDb(user);
     }
@@ -121,7 +120,7 @@ public class UserRepoDb {
      */
     public void removeUser(User user) throws RepoException {
         if (!users.remove(user)) {
-            throw new RepoException("Userul nu există\n");
+            throw new RepoException("Can't find the user" + user.getUserName() + "\n");
         }
         removeUserFromDb(user);
     }

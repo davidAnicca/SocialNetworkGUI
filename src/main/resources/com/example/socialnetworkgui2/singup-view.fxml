@@ -12,17 +12,15 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <children>
-        <Label text="User Name"/>
-        <TextField fx:id="userText"/>
-        <Label text="Password"/>
-        <PasswordField fx:id="passwordText"/>
-        <Label text="Repeat Password"/>
-        <PasswordField fx:id="passwordText2"/>
-        <Label text="Email"/>
-        <TextField fx:id="emailText"/>
-        <Label text="Birth Date"/>
-        <DatePicker fx:id="birthDate"/>
-        <Button fx:id="singUpButton" mnemonicParsing="false" text="Sing Up" onAction="#onSingUpButtonClick"/>
-    </children>
+    <Label text="User Name"/>
+    <TextField fx:id="userText"/>
+    <Label text="Password"/>
+    <PasswordField fx:id="passwordText"/>
+    <Label text="Repeat Password"/>
+    <PasswordField fx:id="passwordText2"/>
+    <Label text="Email"/>
+    <TextField fx:id="emailText"/>
+    <Label text="Birth Date"/>
+    <DatePicker fx:id="birthDate"/>
+    <Button fx:id="singUpButton" mnemonicParsing="false" text="Sing Up" onAction="#onSingUpButtonClick"/>
 </VBox>

@@ -1,4 +1,4 @@
-module com.example.socialnetworkgui2 {
+module com.example.socialnetworkgui {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;

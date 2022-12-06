@@ -40,6 +40,7 @@ public class Main extends Application {
         stage.initStyle(StageStyle.UTILITY);
         stage.show();
         LoginController loginController = fxmlLoader.getController();
+        loginController.init();
         loginController.setService(userService);
 
     }
