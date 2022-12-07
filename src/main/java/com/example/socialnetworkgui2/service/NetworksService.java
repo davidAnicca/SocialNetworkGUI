@@ -30,12 +30,12 @@ public class NetworksService {
      * @param user userul pt care s-a dat cererea de prietenie (primul user o cere și celălalt o acceptă)
      * @return o mulțime de prietenii în starea de pending
      */
-    public Set<Friendship> getRequests(String user) {
-        Set<Friendship> requests = new HashSet<>();
+    public Set<String> getRequests(String user) {
+        Set<String> requests = new HashSet<>();
         for (Friendship friendship : friendshipRepo.getFriendships()) {
             if (friendship.getStatus() != FriendshipStatus.PENDING) continue;
             if (Objects.equals(friendship.getUser2(), user)) {
-                requests.add(friendship);
+                requests.add(friendship.getUser1());
             }
         }
         return requests;

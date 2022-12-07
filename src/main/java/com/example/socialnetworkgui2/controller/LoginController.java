@@ -42,6 +42,17 @@ public class LoginController {
                 }
             }
         });
+        userText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onLoginButtonClick(new ActionEvent());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (RepoException ignored) {
+
+                }
+            }
+        });
     }
 
     public void setService(UserService service) {

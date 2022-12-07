@@ -1,6 +1,7 @@
 package com.example.socialnetworkgui2.db;
 
 import com.example.socialnetworkgui2.domain.Friendship;
+import com.example.socialnetworkgui2.domain.FriendshipStatus;
 import com.example.socialnetworkgui2.exceptions.RepoException;
 
 
@@ -74,8 +75,14 @@ public class FriendshipRepoDb {
      */
     public void addFriendship(Friendship friendship) throws RepoException {
         for (Friendship friendship1 : friendships) {
-            if (friendship1.equals(friendship)) {
+            if (friendship1.equals(friendship) && friendship1.getStatus() != FriendshipStatus.DELETED) {
                 throw new RepoException("You are already friends or friend request was sent. Wait for confirmation");
+            }
+            if(friendship1.equals(friendship) && friendship1.getStatus() == FriendshipStatus.DELETED) {
+                removeFriendshipFromDb(friendship);
+                saveFriendship(friendship);
+                friendship1.setStatusFromInt(0);
+                return;
             }
         }
         if (!friendships.add(friendship)) {
@@ -110,8 +117,8 @@ public class FriendshipRepoDb {
         for (Friendship friendship1 : friendships) {
             if (friendship1.equals(friendship)) {
                 friendship1.deleteFriendship();
-                removeFriendshipFromDb(friendship);
-                saveFriendship(friendship);
+                removeFriendshipFromDb(friendship1);
+                saveFriendship(friendship1);
                 return;
             }
         }
@@ -122,6 +129,8 @@ public class FriendshipRepoDb {
         for (Friendship friendship1 : friendships) {
             if (friendship.equals(friendship1)) {
                 friendship1.acceptFriendship();
+                removeFriendshipFromDb(friendship1);
+                saveFriendship(friendship1);
                 return;
             }
         }

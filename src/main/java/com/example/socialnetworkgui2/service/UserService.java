@@ -20,7 +20,15 @@ public class UserService {
     UserRepoDb repo;
     FriendshipRepoDb friendshipRepo;
 
-    NetworksService networksService;
+    private NetworksService networksService;
+
+    public Set<String> getRequests(User user) throws RepoException {
+        if (!isUser(user.getUserName())) {
+            throw new RepoException(user + " is not a valid user");
+        }
+        return networksService.getRequests(user.getUserName());
+    }
+
 
     /**
      * constructor
@@ -196,11 +204,11 @@ public class UserService {
      * @return lista cu prietenii utilizatorului user
      * @throws RepoException daca user nu referă către un utilizator valid
      */
-    public Set<String> getFriends(String user) throws RepoException {
-        if (!isUser(user)) {
+    public Set<String> getFriends(User user) throws RepoException {
+        if (!isUser(user.getUserName())) {
             throw new RepoException(user + " is not a valid user");
         }
-        return networksService.getFriends(user);
+        return networksService.getFriends(user.getUserName());
     }
 
     /**
