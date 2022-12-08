@@ -138,7 +138,7 @@ public class MainPageController {
         if(friendsNRequestsList.getSelectionModel().getSelectedItem() == null)
             return;
         String selected = friendsNRequestsList.getSelectionModel().getSelectedItem();
-        service.removeFriendship(loggedUser.getUserName(), selected);
+        service.removeFriendship(loggedUser.getUserName(), selected.split(" ")[0]);
         friendsOrRequests.clear();
         if(requestButton.isDisabled()){
             friendsOrRequests.addAll(service.getRequests(loggedUser));
@@ -153,7 +153,7 @@ public class MainPageController {
         if(friendsNRequestsList.getSelectionModel().getSelectedItem() == null)
             return;
         String selected = friendsNRequestsList.getSelectionModel().getSelectedItem();
-        service.acceptFriendship(selected, loggedUser.getUserName());
+        service.acceptFriendship(selected.split(" ")[0], loggedUser.getUserName());
         friendsOrRequests.clear();
         friendsOrRequests.addAll(service.getRequests(loggedUser));
         MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Succes", "Friend request accepted");

@@ -6,6 +6,7 @@ import com.example.socialnetworkgui2.db.UserRepoDb;
 import com.example.socialnetworkgui2.domain.Friendship;
 import com.example.socialnetworkgui2.domain.FriendshipStatus;
 import com.example.socialnetworkgui2.domain.User;
+import com.example.socialnetworkgui2.utils.Strings;
 
 import java.util.*;
 
@@ -35,7 +36,7 @@ public class NetworksService {
         for (Friendship friendship : friendshipRepo.getFriendships()) {
             if (friendship.getStatus() != FriendshipStatus.PENDING) continue;
             if (Objects.equals(friendship.getUser2(), user)) {
-                requests.add(friendship.getUser1());
+                requests.add(friendship.getUser1() + " || from: " + friendship.getFriendsFrom().toString());
             }
         }
         return requests;
@@ -52,10 +53,10 @@ public class NetworksService {
         for (Friendship friendship : friendshipRepo.getFriendships()) {
             if (friendship.getStatus() != FriendshipStatus.ACCEPTED) continue;
             if (Objects.equals(friendship.getUser1(), user)) {
-                friends.add(friendship.getUser2());
+                friends.add(friendship.getUser2() + " || from: " + friendship.getFriendsFrom().toString());
             }
             if (Objects.equals(friendship.getUser2(), user)) {
-                friends.add(friendship.getUser1());
+                friends.add(friendship.getUser1() + " || from: " + friendship.getFriendsFrom().toString());
             }
         }
         return friends;
