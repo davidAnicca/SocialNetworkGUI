@@ -4,16 +4,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="201.0" prefWidth="230.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui2.controller.LoginController">
+<VBox alignment="CENTER" prefHeight="201.0" prefWidth="230.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.socialnetworkgui2.controller.LoginController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <children>
-        <Label text="User Name" />
-        <TextField fx:id="userText" promptText="Enter your user name" text="david" />
-        <Label text="Password" />
-        <PasswordField fx:id="passwordText" promptText="Enter your password" text="adenozintrifosfat" />
-        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Log In" />
-        <Button fx:id="singUpButton" mnemonicParsing="false" onAction="#onSingUpButtonClick" text="Sing Up" />
+        <Label text="User Name"/>
+        <TextField fx:id="userText" promptText="Enter your user name" text="david"/>
+        <Label text="Password"/>
+        <PasswordField fx:id="passwordText" promptText="Enter your password" text="adenozintrifosfat"/>
+        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Log In"/>
+        <Button fx:id="singUpButton" mnemonicParsing="false" onAction="#onSingUpButtonClick" text="Sing Up"/>
     </children>
 </VBox>

@@ -36,7 +36,18 @@ public class NetworksService {
         for (Friendship friendship : friendshipRepo.getFriendships()) {
             if (friendship.getStatus() != FriendshipStatus.PENDING) continue;
             if (Objects.equals(friendship.getUser2(), user)) {
-                requests.add(friendship.getUser1() + " || from: " + friendship.getFriendsFrom().toString());
+                requests.add(friendship.getUser1() + " || from: " + friendship.getFriendsFrom().toString()+ " || RECEIVED");
+            }
+        }
+        return requests;
+    }
+
+    public Set<String> getSentRequests(String user) {
+        Set<String> requests = new HashSet<>();
+        for (Friendship friendship : friendshipRepo.getFriendships()) {
+            if (friendship.getStatus() != FriendshipStatus.PENDING) continue;
+            if (Objects.equals(friendship.getUser1(), user)) {
+                requests.add(friendship.getUser2() + " || from: " + friendship.getFriendsFrom().toString() + " || SENT");
             }
         }
         return requests;

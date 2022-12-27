@@ -63,6 +63,7 @@ public class FriendshipRepoDb {
      * @return o mulțime care conține toate relațiile de prietenie din aplicație
      */
     public Set<Friendship> getFriendships() {
+        loadData();
         return friendships;
     }
 

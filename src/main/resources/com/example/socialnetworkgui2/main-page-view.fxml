@@ -4,11 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="201.0" prefWidth="230.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui2.controller.MainPageController">
+<VBox alignment="CENTER" prefHeight="201.0" prefWidth="230.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.socialnetworkgui2.controller.MainPageController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Label fx:id="userNameLabel" />
+    <Label fx:id="userNameLabel"/>
+    <Button fx:id="chatButton" onAction="#onChatButtonClick" text="Chat"/>
     <HBox alignment="BASELINE_LEFT">
         <Button fx:id="friendsButton" text="Friends" onAction="#onFriendsButtonClick"/>
         <Button fx:id="requestButton" text="Requests" onAction="#onRequestsButtonClick"/>
@@ -18,9 +21,11 @@
         <Button fx:id="deleteButton" text="Delete" onAction="#onDeleteButtonClick"/>
         <Button fx:id="acceptButton" text="Accept" onAction="#onAcceptButtonClick"/>
     </HBox>
-    <Label text="Add a new friend here" />
-    <TextField fx:id="newFriendText" promptText="Search for a new friend here" />
+
+    <Label text="Add a new friend here"/>
+    <TextField fx:id="newFriendText" promptText="Search for a new friend here"/>
     <Button fx:id="addFriendButton" onAction="#addFriend" text="Send request"/>
-    <Button fx:id="logoutButton" onAction="#onLogoutButtonClick" text="Log Out" />
+    <Button fx:id="logoutButton" onAction="#onLogoutButtonClick" text="Log Out"/>
+
 
 </VBox>

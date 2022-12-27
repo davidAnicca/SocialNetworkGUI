@@ -4,6 +4,7 @@ package com.example.socialnetworkgui2.service;
 import com.example.socialnetworkgui2.db.FriendshipRepoDb;
 import com.example.socialnetworkgui2.db.UserRepoDb;
 import com.example.socialnetworkgui2.domain.Friendship;
+import com.example.socialnetworkgui2.domain.Message;
 import com.example.socialnetworkgui2.domain.User;
 import com.example.socialnetworkgui2.exceptions.RepoException;
 import com.example.socialnetworkgui2.exceptions.ServiceException;
@@ -22,11 +23,20 @@ public class UserService {
 
     private NetworksService networksService;
 
+    private MessageService messageService;
+
     public Set<String> getRequests(User user) throws RepoException {
         if (!isUser(user.getUserName())) {
             throw new RepoException(user + " is not a valid user");
         }
         return networksService.getRequests(user.getUserName());
+    }
+
+    public Set<String> getSentRequests(User user) throws RepoException {
+        if (!isUser(user.getUserName())) {
+            throw new RepoException(user + " is not a valid user");
+        }
+        return networksService.getSentRequests(user.getUserName());
     }
 
 

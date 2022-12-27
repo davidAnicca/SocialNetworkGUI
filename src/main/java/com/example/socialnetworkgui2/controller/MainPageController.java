@@ -13,11 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class MainPageController {
 
@@ -59,7 +61,11 @@ public class MainPageController {
 
         newFriendText.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                addFriend(new ActionEvent());
+                try {
+                    addFriend(new ActionEvent());
+                } catch (RepoException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -94,7 +100,10 @@ public class MainPageController {
     @FXML
     private Button addFriendButton;
 
-    public void addFriend(ActionEvent event) {
+    @FXML
+    private Button chatButton;
+
+    public void addFriend(ActionEvent event) throws RepoException {
         if (newFriendText.getText().strip().equals(""))
             return;
         try {
@@ -104,6 +113,17 @@ public class MainPageController {
             MessageAlert.showMessage(null, Alert.AlertType.ERROR, ":(", e.getMessage());
         }
         newFriendText.setText("");
+        update();
+    }
+
+    private void update() throws RepoException {
+        friendsOrRequests.clear();
+        if(requestButton.isDisabled()){
+            friendsOrRequests.addAll(service.getRequests(loggedUser));
+            friendsOrRequests.addAll(service.getSentRequests(loggedUser));
+        }else{
+            friendsOrRequests.addAll(service.getFriends(loggedUser));
+        }
     }
 
     public void onFriendsButtonClick(ActionEvent event) throws RepoException {
@@ -120,6 +140,7 @@ public class MainPageController {
         requestButton.setDisable(true);
         friendsOrRequests.clear();
         friendsOrRequests.addAll(service.getRequests(loggedUser));
+        friendsOrRequests.addAll(service.getSentRequests(loggedUser));
         acceptButton.setDisable(true);
         deleteButton.setDisable(true);
     }
@@ -140,14 +161,8 @@ public class MainPageController {
             return;
         String selected = friendsNRequestsList.getSelectionModel().getSelectedItem();
         service.removeFriendship(loggedUser.getUserName(), selected.split(" ")[0]);
-        friendsOrRequests.clear();
-        if(requestButton.isDisabled()){
-            friendsOrRequests.addAll(service.getRequests(loggedUser));
-            MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Succes", "Friend request deleted");
-        }else{
-            friendsOrRequests.addAll(service.getFriends(loggedUser));
-            MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Succes", "Friend deleted");
-        }
+        update();
+        MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Succes", "Deleted !");
     }
 
     public void onAcceptButtonClick(ActionEvent event) throws RepoException {
@@ -157,6 +172,24 @@ public class MainPageController {
         service.acceptFriendship(selected.split(" ")[0], loggedUser.getUserName());
         friendsOrRequests.clear();
         friendsOrRequests.addAll(service.getRequests(loggedUser));
+        friendsOrRequests.addAll(service.getSentRequests(loggedUser));
         MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Succes", "Friend request accepted");
+    }
+
+    public void onChatButtonClick(ActionEvent event) throws IOException, RepoException {
+        URL fxmlLocation = Main.class.getResource("chat-view.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+        Scene scene = new Scene(fxmlLoader.load(), 320, 700);
+        Stage stage = new Stage();
+        stage.setTitle("Chat");
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        ChatBoxController chatBoxController = fxmlLoader.getController();
+        chatBoxController.setService(service);
+        chatBoxController.setLoggedUser(loggedUser);
+        chatBoxController.init();
+        stage.showAndWait();
     }
 }
