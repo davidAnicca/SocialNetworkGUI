@@ -9,9 +9,9 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <ChoiceBox fx:id="friendsList" prefHeight="26.0" prefWidth="225.0" />
+        <ChoiceBox fx:id="friendsList" prefHeight="26.0" prefWidth="225.0" onAction="#friendChoice" />
         <ListView fx:id="messagesList" />
-        <TextArea fx:id="messageText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="258.0" promptText="Say something..." />
+        <TextArea fx:id="messageText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="258.0" promptText="Say something..." onKeyPressed="#typinig"/>
         <Button fx:id="sendMessage" onAction="#onSendMessageButtonClick" text="Send" />
     </children>
 </VBox>

@@ -2,6 +2,7 @@ package com.example.socialnetworkgui2.service;
 
 
 import com.example.socialnetworkgui2.db.FriendshipRepoDb;
+import com.example.socialnetworkgui2.db.MessageRepoDb;
 import com.example.socialnetworkgui2.db.UserRepoDb;
 import com.example.socialnetworkgui2.domain.Friendship;
 import com.example.socialnetworkgui2.domain.Message;
@@ -20,8 +21,15 @@ public class UserService {
      */
     UserRepoDb repo;
     FriendshipRepoDb friendshipRepo;
-
     private NetworksService networksService;
+
+    public MessageService getMessageService() {
+        return messageService;
+    }
+
+    public void setMessageService(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     private MessageService messageService;
 
@@ -46,10 +54,11 @@ public class UserService {
      * @param repo           java.repo pentru utilizatori
      * @param friendshipRepo java.repo pentru relații de prietenie
      */
-    public UserService(UserRepoDb repo, FriendshipRepoDb friendshipRepo) {
+    public UserService(UserRepoDb repo, FriendshipRepoDb friendshipRepo, MessageRepoDb messageRepoDb) {
         this.friendshipRepo = friendshipRepo;
         this.repo = repo;
         networksService = new NetworksService(friendshipRepo, repo);
+        messageService = new MessageService(messageRepoDb);
     }
 
     /**

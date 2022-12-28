@@ -9,6 +9,13 @@ public class Message {
     String to;
     String content;
 
+    public Message(String from, String to, String content, LocalDateTime dateTime) {
+        this.from = from;
+        this.to = to;
+        this.content = content;
+        this.dateTime = dateTime;
+    }
+
     public Timestamp getDateTime() {
         return Timestamp.valueOf(dateTime);
     }

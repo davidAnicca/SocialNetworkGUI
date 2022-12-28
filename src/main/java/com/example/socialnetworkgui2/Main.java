@@ -2,6 +2,7 @@ package com.example.socialnetworkgui2;
 
 import com.example.socialnetworkgui2.controller.LoginController;
 import com.example.socialnetworkgui2.db.FriendshipRepoDb;
+import com.example.socialnetworkgui2.db.MessageRepoDb;
 import com.example.socialnetworkgui2.db.UserRepoDb;
 import com.example.socialnetworkgui2.service.UserService;
 import javafx.application.Application;
@@ -18,18 +19,24 @@ public class Main extends Application {
     FriendshipRepoDb friendshipRepoDb;
     UserService userService;
 
+    MessageRepoDb messageRepoDb;
+
 
     @Override
     public void start(Stage stage) throws IOException {
         userRepo = new UserRepoDb("jdbc:postgresql://localhost:5432/SocialNetworkDB",
-                                "postgres",
-                                "adenozintrifosfat");
+                "postgres",
+                "adenozintrifosfat");
 
         friendshipRepoDb = new FriendshipRepoDb("jdbc:postgresql://localhost:5432/SocialNetworkDB",
-                                "postgres",
-                                "adenozintrifosfat");
+                "postgres",
+                "adenozintrifosfat");
 
-        userService = new UserService(userRepo, friendshipRepoDb);
+        messageRepoDb = new MessageRepoDb("jdbc:postgresql://localhost:5432/SocialNetworkDB",
+                "postgres",
+                "adenozintrifosfat");
+
+        userService = new UserService(userRepo, friendshipRepoDb, messageRepoDb);
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));

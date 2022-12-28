@@ -176,7 +176,7 @@ public class MainPageController {
         MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Succes", "Friend request accepted");
     }
 
-    public void onChatButtonClick(ActionEvent event) throws IOException, RepoException {
+    public void onChatButtonClick(ActionEvent event) throws IOException, RepoException, InterruptedException {
         URL fxmlLocation = Main.class.getResource("chat-view.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
         Scene scene = new Scene(fxmlLoader.load(), 320, 700);
@@ -188,6 +188,7 @@ public class MainPageController {
         stage.setScene(scene);
         ChatBoxController chatBoxController = fxmlLoader.getController();
         chatBoxController.setService(service);
+        chatBoxController.setMessageService(service.getMessageService());
         chatBoxController.setLoggedUser(loggedUser);
         chatBoxController.init();
         stage.showAndWait();

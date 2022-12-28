@@ -1,9 +1,12 @@
 package com.example.socialnetworkgui2.db;
 
+import com.example.socialnetworkgui2.domain.Friendship;
 import com.example.socialnetworkgui2.domain.Message;
 
 import java.sql.*;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class MessageRepoDb {
 
@@ -17,8 +20,8 @@ public class MessageRepoDb {
         this.password = password;
     }
 
-    public void saveMessage(Message message){
-        String sql = "insert into messages (from, to, content, date_time) values (?, ?, ?, ?)";
+    public void saveMessage(Message message) {
+        String sql = "insert into messages (fr, t, content, date_time) values (?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, userName, password);
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -33,8 +36,28 @@ public class MessageRepoDb {
         }
     }
 
-    public Set<Message> getMessages(){
-        return null;
-    }
+    public List<Message> getMessages(String u1, String u2) {
+        String user1 = "'" + u1 + "'";
+        String user2 = "'" + u2 + "'";
+        System.out.println(user1);
+        System.out.println(user2);
+        List<Message> messages = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url, userName, password);
+             PreparedStatement statement = connection.prepareStatement("select * from messages\n" +
+                     "where (fr="  +user1+ " and t=" +user2+")\n" +
+                     "or (fr=" + user2 +" and t=" +user1+ ");");
+             ResultSet resultSet = statement.executeQuery()) {
 
+            while (resultSet.next()) {
+                String from = resultSet.getString("fr");
+                String to = resultSet.getString("t");
+                String content = resultSet.getString("content");
+                LocalDateTime dateTime = resultSet.getTimestamp("date_time").toLocalDateTime();
+                messages.add(new Message(from, to, content, dateTime));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return messages;
+    }
 }
